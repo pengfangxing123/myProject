@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jncj.myProject.dao.product.BrandMapper">
+
+	<resultMap type="com.jncj.myProject.pojo.product.Brand" id="fieldToBrand">
+		<result column="img_url" property="imgUrl"/>
+		<result column="is_display" property="isDisplay"/>
+	</resultMap>
+	<!-- 分页查询品牌 -->
+	<select id="queryBrand" parameterType="com.jncj.myProject.pojo.product.Brand" resultMap="fieldToBrand">
+		select * from brand
+		<where>
+			<if test="name != null and name != ''">
+				and name like concat(concat('%',#{name}),'%')
+			</if>
+			<if test="isDisplay != null">
+				and isDisplay = #{isDisplay}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 查询所有品牌条数 -->
+	<select id="queryBrandSize" parameterType="com.jncj.myProject.pojo.product.Brand" resultType="int">
+		select count(*) from brand
+		<where>
+			<if test="name != null and name != ''">
+				and name like concat(concat('%',#{name}),'%')
+			</if>
+			<if test="isDisplay != null">
+				and isDisplay = #{isDisplay}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 根据id查询品牌 -->
+	<select id="queryBrandById" parameterType="java.util.HashMap" resultMap="fieldToBrand">
+		select * from brand
+		<where>
+			<if test="id != null and id != ''">
+				and id =#{id}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 更新品牌 -->
+	<update id="updateBrand" parameterType="com.jncj.myProject.pojo.product.Brand" >
+		update  brand
+		<set>
+			<if test="name != null and name != ''">
+		      name = #{name},
+		    </if>
+			<if test="description != null and description != ''">
+		      description = #{description},
+		    </if>
+			<if test="imgUrl != null and imgUrl != ''">
+		      imgUrl = #{imgUrl},
+		    </if>
+			<if test="sort != null and sort != ''">
+		      sort = #{sort},
+		    </if>
+			<if test="isDisplay != null and isDisplay != ''">
+		      isDisplay = #{isDisplay},
+		    </if>
+		</set>
+		<where>
+			<if test="id != null and id != ''">
+				and id =#{id}
+			</if>
+		</where>
+	</update>
+	
+	<!-- 新增品牌 -->
+	<insert id="addBrand" parameterType="com.jncj.myProject.pojo.product.Brand" >
+		insert into  brand(
+			<trim suffixOverrides=",">
+			<if test="name != null and name != ''">
+		      name, 
+		    </if>
+			<if test="description != null and description != ''">
+		      description, 
+		    </if>
+			<if test="imgUrl != null and imgUrl != ''">
+		      imgUrl, 
+		    </if>
+			<if test="sort != null and sort != ''">
+		      sort ,
+		    </if>
+			<if test="isDisplay != null and isDisplay != ''">
+		      isDisplay ,
+		    </if>
+		    </trim>   
+		    )VALUES(
+		    <trim suffixOverrides=",">
+		    <if test="id != null and id != ''">
+		      #{id},
+		    </if>
+		    <if test="name != null and name != ''">
+		     #{name},
+		    </if>
+			<if test="description != null and description != ''">
+		      #{description},
+		    </if>
+			<if test="imgUrl != null and imgUrl != ''">
+		      #{imgUrl},
+		    </if>
+			<if test="sort != null and sort != ''">
+		      #{sort},
+		    </if>
+			<if test="isDisplay != null and isDisplay != ''">
+		      #{isDisplay}
+		    </if>
+		    </trim>   
+		    )		
+	</insert>
+
+
+</mapper>
