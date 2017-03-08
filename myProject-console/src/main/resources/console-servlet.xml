@@ -36,5 +36,8 @@
 	<!-- 加载dubbo的服务消费方法配置文件 -->
 	<import resource="classpath:dubbo-consumer.xml"/>
 	
-		
+	<!-- 配置附件上传解析器 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="5242880"/>
+	</bean>	
 </beans>

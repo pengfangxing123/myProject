@@ -9,7 +9,7 @@
 	function uploadPic(){
 		// 构建jquery.form.js需要参数信息
 		var options = {
-				url:"/upload/uploadPic.do",
+				url:"${pageContext.request.contextPath}/upload/uploadPic.do",
 				type:"post",
 				dataType:"json",
 				success:function(data){
